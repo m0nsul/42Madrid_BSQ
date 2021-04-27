@@ -13,7 +13,7 @@ char	*ft_file_missing(void)
 
 	if ((file = open("tempgrid", O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 0)
 		return (NULL);
-	while (read(STDIN_FILENO, &buf, 1))
+	while (read(STDIN_FILENO, &buf, 1) != 0)
 	{
 		write(file, &buf, 1);
 	}
@@ -21,17 +21,10 @@ char	*ft_file_missing(void)
 	return ("tempgrid");
 }
 
+
 int	check_main(int argc, char **argv)
 {
-	if (argc == 1)
-	{
-		argv[1] = (char *) malloc (9 * sizeof(char));
-		ft_strcpy(argv[1], ft_file_missing());
-		argc++;
-		return (1);
-
-	}
-	if (!(ft_strlen(argv[0])))
+	if (!(ft_strlen(argv[0])) && argc == 0)
 		return (0);
 	return (1);
 }
@@ -43,6 +36,9 @@ int	main(int argc, char **argv)
 	// TODO: Función exit para qué?
 	// TODO: leer cuadrado por entrada estandar
 	// TODO: Validar mapa
+	// TODO: Revisar caso sin soluciones (p.e. todos obstaculos)
+	// TODO: Comprobar fichero vacío
+	// TODO: El mapa no será válido si falta algún carácter en la primera línea o si hay dos caracteres (de entre vacío, lleno y obstáculos) que sean idénticos.
 	t_b	*board;
 	int	n;
 

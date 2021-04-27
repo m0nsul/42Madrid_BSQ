@@ -26,7 +26,7 @@ char	*ft_strncpy(char *dest, char *src, int n)
 		dest[index] = src[index];
 		index++;
 	}
-	while (index < n)
+	while (index < ft_strlen(dest))
 	{
 		dest[index] = '\0';
 		index++;

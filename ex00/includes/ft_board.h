@@ -33,5 +33,6 @@ typedef struct s_board
 t_b		*ft_boardcreate(char *path);
 void	ft_boardinit(t_b *board, char *path);
 void	ft_boardfree(t_b *board);
+int		ft_checkfile(char **lines, int lines_size);
 
 #endif

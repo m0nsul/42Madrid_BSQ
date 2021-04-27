@@ -12,7 +12,7 @@ NAME	= bsq
 CC		= cc
 RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror
-BOARD   = tablerocc80
+BOARD   = tablero652
 
 .c.o :
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I ${INCS}
