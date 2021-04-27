@@ -42,7 +42,7 @@ int	ft_checkfile(char **lines, int lines_size)
 	if (!lines[0])
 		return (0);
 	len_line0 = ft_strlen(lines[0]);
-	if (lines_size < 2)
+	if (lines_size < 2 || (!(ft_check_first_line(lines[0]))))
 		return (0);
 	line_width = ft_strlen(lines[1]);
 	y_size = ft_atoi_b(ft_strncpy(size_atoi, lines[0], len_line0 - 3));
@@ -69,7 +69,7 @@ int	ft_boardinit(t_b *board, char *path)
 	if (!(ft_checkfile(lines, lines_size)))
 		return (0);
 	len_line0 = ft_strlen(lines[0]);
-	board->path = ft_strdup(path);
+	ft_strcpy(board->path, path);
 	board->x_size = ft_strlen(lines[1]);
 	board->y_size = ft_atoi_b(ft_strncpy(size_atoi, lines[0], len_line0 - 3));
 	board->free = lines[0][len_line0 - 3];
@@ -87,6 +87,8 @@ int	ft_boardinit(t_b *board, char *path)
 int	ft_boardcreate(t_b	*board, char *path)
 {
 	board->error = 0;
+	board->x_size = 0;
+	board->y_size = 0;
 	if (!(ft_boardinit(board, path)))
 	{
 		board->error = 1;
@@ -101,11 +103,10 @@ int	ft_boardcreate(t_b	*board, char *path)
 
 void	ft_boardfree(t_b *board)
 {
-	ft_squaresfree(board);
+	if (board)
+		ft_squaresfree(board);
 	if (board->squares)
 		free(board->squares);
-	if (board->path)
-		free(board->path);
 	if (board)
 		free(board);
 }

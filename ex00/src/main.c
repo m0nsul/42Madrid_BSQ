@@ -55,7 +55,6 @@ int	main(int argc, char **argv)
 		{
 			ft_put_error();
 			ft_boardfree(board);
-			
 		}
 	}
 	if (check_main(argc, argv)) // TODO: hacer los checks de argumentos
@@ -70,7 +69,6 @@ int	main(int argc, char **argv)
 			{
 				ft_put_error();
 				ft_boardfree(board);
-				
 			}
 		}
 	}

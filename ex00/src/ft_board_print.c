@@ -10,7 +10,6 @@ void	ft_boardprint_solution(t_b *board, int x, int y)
 	int	j;
 
 	i = -1;
-	ft_putchar('\n');
 	while (++i < board->y_size)
 	{
 		j = -1;
@@ -43,7 +42,6 @@ void	ft_boardprint_solutions(t_b *board)
 		while (++j < board->x_size)
 			if (board->squares[i][j]->is_solution)
 			{
-				//printf("\n\n\nBoard %s Solution %d:\n\n", board->path, n++);
 				ft_boardprint_solution(board, j, i);
 				return ;
 			}

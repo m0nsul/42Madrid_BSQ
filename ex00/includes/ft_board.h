@@ -19,7 +19,7 @@ typedef struct s_board_square
 
 typedef struct s_board
 {
-	char		*path;
+	char		path[100];
 	int			x_size;
 	int			y_size;
 	int			density;
