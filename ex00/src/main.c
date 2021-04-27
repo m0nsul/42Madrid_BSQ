@@ -16,7 +16,8 @@ char	*ft_file_missing(void)
 	char	buf;
 	int		file;
 
-	if ((file = open("tempgrid", O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 0)
+	file = open("tempgrid", O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	if (file < 0)
 		return (NULL);
 	while (read(STDIN_FILENO, &buf, 1) != 0)
 	{
@@ -44,13 +45,12 @@ int	main(int argc, char **argv)
 	board = NULL;
 	if (argc == 1)
 	{
+		board = (t_b *) malloc (sizeof(t_b));
 		if (!(ft_boardcreate(board, ft_file_missing())))
-		{
 			ft_put_error();
-			ft_boardfree(board);
-		}
+		ft_boardfree(board);
 	}
-	if (check_main(argc, argv)) // TODO: hacer los checks de argumentos
+	if (check_main(argc, argv))
 	{
 		n = 0;
 		while (++n < argc)
@@ -59,12 +59,10 @@ int	main(int argc, char **argv)
 			if (!board)
 				return (0);
 			if (!(ft_boardcreate(board, argv[n])))
-			{
 				ft_put_error();
-				ft_boardfree(board);
-			}
 			if (n < argc - 1)
 				ft_putchar('\n');
+			ft_boardfree(board);
 		}
 	}
 	else

@@ -84,10 +84,10 @@ int	ft_boardinit(t_b *board, char *path)
 }
 
 int	ft_boardcreate(t_b	*board, char *path)
-{
+{	
 	board->error = 0;
 	board->x_size = 0;
-	board->y_size = 0;
+	board->y_size = 0;		
 	if (!(ft_boardinit(board, path)))
 	{
 		board->error = 1;
