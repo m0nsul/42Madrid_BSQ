@@ -1,0 +1,7 @@
+a.out
+*.o
+*.swp
+.vscode/*
+*.code-workspace
+# Local History for Visual Studio Code
+.history/
