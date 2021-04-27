@@ -9,7 +9,7 @@
 #include "ft_strxcpy.h"
 #include "ft_aux.h"
 
-int	ft_checkfile_chars (char **lines, int lines_size)
+int	ft_checkfile_chars(char **lines, int lines_size)
 {
 	int	i;
 	int	j;
@@ -52,7 +52,7 @@ int	ft_checkfile(char **lines, int lines_size)
 		if ((ft_strlen(lines[i]) != line_width)
 			|| ft_strlen(lines[i]) < 1)
 			return (0);
-	if (!(ft_checkfile_chars (lines, lines_size)))
+	if (!(ft_checkfile_chars(lines, lines_size)))
 		return (0);
 	return (1);
 }
@@ -84,10 +84,10 @@ int	ft_boardinit(t_b *board, char *path)
 }
 
 int	ft_boardcreate(t_b	*board, char *path)
-{	
+{
 	board->error = 0;
 	board->x_size = 0;
-	board->y_size = 0;		
+	board->y_size = 0;
 	if (!(ft_boardinit(board, path)))
 	{
 		board->error = 1;

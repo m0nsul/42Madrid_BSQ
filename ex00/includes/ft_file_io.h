@@ -4,6 +4,6 @@
 char	*ft_filetostr(char *path);
 char	**ft_filegetlines(char *path);
 int		ft_getlinesnum(char **lines);
-int	ft_printlines(char **lines);
+int		ft_printlines(char **lines);
 
 #endif
