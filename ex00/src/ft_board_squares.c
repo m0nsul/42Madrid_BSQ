@@ -80,11 +80,13 @@ void	ft_squaresfree(t_b *board)
 	{
 		j = -1;
 		while (++j < board->x_size)
-			free(board->squares[i][j]);
+			if (board->squares[i][j])
+				free(board->squares[i][j]);
 	}
 	i = -1;
 	while (++i < board->y_size)
-		free(board->squares[i]);
+		if (board->squares[i])
+			free(board->squares[i]);
 }
 
 void	ft_boardinitsolutions(t_b *board)

@@ -27,12 +27,15 @@ typedef struct s_board
 	char		obst;
 	char		aqchar;
 	char		solution_max;
+	int			error;
+	char		errormsg[50];
 	t_bsq		***squares;
 }	t_b;
 
-t_b		*ft_boardcreate(char *path);
-void	ft_boardinit(t_b *board, char *path);
+int		ft_boardcreate(t_b	*board, char *path);
+int		ft_boardinit(t_b *board, char *path);
 void	ft_boardfree(t_b *board);
 int		ft_checkfile(char **lines, int lines_size);
+int		ft_checkfile_chars (char **lines, int lines_size);
 
 #endif

@@ -43,8 +43,9 @@ void	ft_boardprint_solutions(t_b *board)
 		while (++j < board->x_size)
 			if (board->squares[i][j]->is_solution)
 			{
-				printf("\n\n\nBoard %s Solution %d:\n\n", board->path, n++);
+				//printf("\n\n\nBoard %s Solution %d:\n\n", board->path, n++);
 				ft_boardprint_solution(board, j, i);
+				return ;
 			}
 	}
 }

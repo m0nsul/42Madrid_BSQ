@@ -6,6 +6,11 @@
 #include "ft_board.h"
 #include "ft_str.h"
 
+void	ft_put_error(void)
+{
+	write(1, "map error", 9);
+	write(1, "\n", 1);
+}
 char	*ft_file_missing(void)
 {
 	char	buf;
@@ -39,29 +44,40 @@ int	main(int argc, char **argv)
 	// TODO: Revisar caso sin soluciones (p.e. todos obstaculos)
 	// TODO: Comprobar fichero vacío
 	// TODO: El mapa no será válido si falta algún carácter en la primera línea o si hay dos caracteres (de entre vacío, lleno y obstáculos) que sean idénticos.
+	// TODO: comprobar antes de hacer free
 	t_b	*board;
 	int	n;
 
+	board = NULL;
 	if (argc == 1)
 	{
-		board = ft_boardcreate(ft_file_missing());
-		ft_boardfree(board);
+		if (!(ft_boardcreate(board, ft_file_missing())))
+		{
+			ft_put_error();
+			ft_boardfree(board);
+			
+		}
 	}
 	if (check_main(argc, argv)) // TODO: hacer los checks de argumentos
 	{
 		n = 0;
 		while (++n < argc)
 		{
-			board = ft_boardcreate(argv[n]);
-			ft_boardfree(board);
-			if (n < argc - 1)
-				write(1, "\n", 1);
+			board = (t_b *) malloc (sizeof(t_b));
+			if (!board)
+				return (0); // TODO: pendiente crear enums para control de errores
+			if (!(ft_boardcreate(board, argv[n])))
+			{
+				ft_put_error();
+				ft_boardfree(board);
+				
+			}
 		}
 	}
 	else
 	{
-		write(1, "Error", 5);
-		write(1, "\n", 1);
+		ft_put_error();
+		return (0);
 	}
 	return (1);
 }

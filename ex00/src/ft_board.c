@@ -9,17 +9,7 @@
 #include "ft_strxcpy.h"
 #include "ft_aux.h"
 
-void	ft_putmaperror(char *error)
-{
-	char	c;
-
-	c = '\n';
-	ft_putstr(error);
-	ft_putchar(c);
-	exit(1);
-}
-
-void	ft_checkfile_chars (char **lines, int lines_size)
+int	ft_checkfile_chars (char **lines, int lines_size)
 {
 	int	i;
 	int	j;
@@ -32,12 +22,14 @@ void	ft_checkfile_chars (char **lines, int lines_size)
 	while (++i < lines_size)
 	{
 		j = -1;
-		while(++j < line_len)
-			if (lines[i][j] != lines[0][len_line0 - 3] &&
-				lines[i][j] != lines[0][len_line0 - 2])
-				ft_putmaperror("map error wrong char found");
+		while (++j < line_len)
+			if (lines[i][j] != lines[0][len_line0 - 3]
+				&& lines[i][j] != lines[0][len_line0 - 2])
+				return (0);
 	}
+	return (1);
 }
+
 int	ft_checkfile(char **lines, int lines_size)
 {
 	int		i;
@@ -48,26 +40,23 @@ int	ft_checkfile(char **lines, int lines_size)
 
 	i = 0;
 	if (!lines[0])
-		ft_putmaperror("map error empty file");
+		return (0);
 	len_line0 = ft_strlen(lines[0]);
 	if (lines_size < 2)
-		ft_putmaperror("map error not enough lines");
+		return (0);
 	line_width = ft_strlen(lines[1]);
 	y_size = ft_atoi_b(ft_strncpy(size_atoi, lines[0], len_line0 - 3));
 	if (y_size != lines_size - 1)
-		ft_putmaperror("map error lines number doesnt match");
+		return (0);
 	while (++i < lines_size)
-	{
-		if (ft_strlen(lines[i]) != line_width)
-			ft_putmaperror("map error line width");
-		else if (ft_strlen(lines[i]) < 1)
-			ft_putmaperror("map error line lenght");
-	}
-	ft_checkfile_chars (lines, lines_size);
+		if ((ft_strlen(lines[i]) != line_width) || ft_strlen(lines[i]) < 1)
+			return (0);
+	if (!(ft_checkfile_chars (lines, lines_size)))
+		return (0);
 	return (1);
 }
 
-void	ft_boardinit(t_b *board, char *path)
+int	ft_boardinit(t_b *board, char *path)
 {
 	char	**lines;
 	int		lines_size;
@@ -75,12 +64,10 @@ void	ft_boardinit(t_b *board, char *path)
 	int		len_line0;
 	char	size_atoi[10];
 
-
 	lines = ft_filegetlines(path);
 	lines_size = ft_getlinesnum(lines);
-
-	printf("\n(4)%d\n", ft_checkfile(lines, lines_size));
-
+	if (!(ft_checkfile(lines, lines_size)))
+		return (0);
 	len_line0 = ft_strlen(lines[0]);
 	board->path = ft_strdup(path);
 	board->x_size = ft_strlen(lines[1]);
@@ -94,27 +81,31 @@ void	ft_boardinit(t_b *board, char *path)
 		board->squares[i] = (t_bsq **)malloc(board->x_size * sizeof(t_bsq *));
 	ft_squaresinit(board, lines);
 	ft_split_free(lines);
-	ft_squarescalculate(board);
-	ft_boardinitsolutions(board);
-	ft_boardprint(board);
-	ft_boardprint_solutions(board);
+	return (1);
 }
 
-t_b	*ft_boardcreate(char *path)
+int	ft_boardcreate(t_b	*board, char *path)
 {
-	t_b	*board;
-
-	board = (t_b *) malloc (sizeof(t_b));
-	if (!board)
-		return (0); // TODO: pendiente crear enums para control de errores
-	ft_boardinit(board, path);
-	return (board);
+	board->error = 0;
+	if (!(ft_boardinit(board, path)))
+	{
+		board->error = 1;
+		return (0);
+	}
+	ft_squarescalculate(board);
+	ft_boardinitsolutions(board);
+	//ft_boardprint(board);
+	ft_boardprint_solutions(board);
+	return (1);
 }
 
 void	ft_boardfree(t_b *board)
 {
 	ft_squaresfree(board);
-	free(board->squares);
-	free(board->path);
-	free(board);
+	if (board->squares)
+		free(board->squares);
+	if (board->path)
+		free(board->path);
+	if (board)
+		free(board);
 }
