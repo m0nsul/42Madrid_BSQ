@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "ft_file.h"
 #include "ft_split.h"
+#include "ft_str.h"
 
 char	*ft_filetostr(char *path)
 {
@@ -35,9 +36,15 @@ char	**ft_filegetlines(char *path)
 {
 	char	**lines;
 	char	*filestr;
+	int		size_str;
 
+	size_str = 0;
 	filestr = ft_filetostr(path);
 	if (!filestr)
+		return (NULL);
+	size_str = ft_strlen(filestr);
+	if (!(filestr[size_str - 1] == '\n' && filestr[size_str - 2] != '\n'
+			&& filestr[size_str - 2] != '\0'))
 		return (NULL);
 	lines = ft_split(filestr, "\n");
 	free(filestr);

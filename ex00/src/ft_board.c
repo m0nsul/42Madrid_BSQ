@@ -49,7 +49,8 @@ int	ft_checkfile(char **lines, int lines_size)
 	if (y_size != lines_size - 1)
 		return (0);
 	while (++i < lines_size)
-		if ((ft_strlen(lines[i]) != line_width) || ft_strlen(lines[i]) < 1)
+		if ((ft_strlen(lines[i]) != line_width)
+			|| ft_strlen(lines[i]) < 1)
 			return (0);
 	if (!(ft_checkfile_chars (lines, lines_size)))
 		return (0);
@@ -59,14 +60,12 @@ int	ft_checkfile(char **lines, int lines_size)
 int	ft_boardinit(t_b *board, char *path)
 {
 	char	**lines;
-	int		lines_size;
 	int		i;
 	int		len_line0;
 	char	size_atoi[10];
 
 	lines = ft_filegetlines(path);
-	lines_size = ft_getlinesnum(lines);
-	if (!(ft_checkfile(lines, lines_size)))
+	if (!lines || !(ft_checkfile(lines, ft_getlinesnum(lines))))
 		return (0);
 	len_line0 = ft_strlen(lines[0]);
 	ft_strcpy(board->path, path);

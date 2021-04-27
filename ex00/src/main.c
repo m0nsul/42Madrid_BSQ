@@ -38,13 +38,6 @@ int	main(int argc, char **argv)
 {
 	// TODO: cambiar printf a write
 	// TODO: Quitar header que no se utilicen
-	// TODO: Función exit para qué?
-	// TODO: leer cuadrado por entrada estandar
-	// TODO: Validar mapa
-	// TODO: Revisar caso sin soluciones (p.e. todos obstaculos)
-	// TODO: Comprobar fichero vacío
-	// TODO: El mapa no será válido si falta algún carácter en la primera línea o si hay dos caracteres (de entre vacío, lleno y obstáculos) que sean idénticos.
-	// TODO: comprobar antes de hacer free
 	t_b	*board;
 	int	n;
 
@@ -64,12 +57,14 @@ int	main(int argc, char **argv)
 		{
 			board = (t_b *) malloc (sizeof(t_b));
 			if (!board)
-				return (0); // TODO: pendiente crear enums para control de errores
+				return (0);
 			if (!(ft_boardcreate(board, argv[n])))
 			{
 				ft_put_error();
 				ft_boardfree(board);
 			}
+			if (n < argc - 1)
+				ft_putchar('\n');
 		}
 	}
 	else

@@ -28,7 +28,6 @@ typedef struct s_board
 	char		aqchar;
 	char		solution_max;
 	int			error;
-	char		errormsg[50];
 	t_bsq		***squares;
 }	t_b;
 

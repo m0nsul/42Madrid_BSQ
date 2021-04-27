@@ -22,12 +22,13 @@ void	ft_boardprint_solution(t_b *board, int x, int y)
 				ft_putchar(board->free);
 			else
 				ft_putchar(board->obst);
-			ft_putchar(' ');
 		}
 		ft_putchar('\n');
 	}
 }
 
+// Añadir en linea 43 para no imprimir 
+// tablero sin solucion: && board->solution_max > 0
 void	ft_boardprint_solutions(t_b *board)
 {
 	int	i;
@@ -63,7 +64,6 @@ void	ft_boardprint_views(t_b *board)
 				ft_putchar(board->free);
 			else
 				ft_putchar(board->obst);
-			ft_putchar(' ');
 		}
 		ft_putchar('\n');
 	}
@@ -78,7 +78,7 @@ void	ft_boardprint(t_b *board)
 	printf("\n\tfree:\t%c", board->free);
 	printf("\n\tobst:\t%c", board->obst);
 	printf("\n\taqchar:\t%c", board->aqchar);
-	printf("\n\tssize:\t%d", board->solution_max);
+	printf("\n\tsolmx:\t%d", board->solution_max);
 	printf("\n\n\nBoard Original view:\n\n");
 	ft_boardprint_views(board);
 	// printf("\nBoard Neighbors view:\n");
