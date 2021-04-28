@@ -1,36 +1,27 @@
-C_YELLOWB=\033[1;33m
-C_BLUEB=\033[1;34m
-C_REDB=\033[0;91m
-C_WHITE=\033[0;97m
-C_WHITEB=\033[1;97m
-C_RESET=\033[0;39m
+SRCS	= ft_aux.c ft_board.c ft_board_print.c ft_board_squares.c ft_check_first_line.c ft_file.c ft_file_io.c ft_split.c ft_str.c ft_strxcpy.c main.c
+OBJS		= $(addprefix src/, ${SRCS:.c=.o})
 
-SRCS	= ./src/ft_aux.c ./src/ft_board.c ./src/ft_board_print.c ./src/ft_board_squares.c ./src/ft_check_first_line.c ./src/ft_file.c ./src/ft_file_io.c ./src/ft_split.c ./src/ft_str.c ./src/ft_strxcpy.c ./src/main.c
-OBJS	= ${SRCS:.c=.o}
-INCS	= includes
-NAME	= bsq
-CC		= cc
-RM		= rm -f
-CFLAGS	= -Wall -Wextra -Werror
-BOARD   = tablero661 tablero552
+SRC_HEADERS	= ft_aux.h ft_board_print.h ft_file.h ft_split.h ft_strxcpy.h ft_board.h ft_board_squares.h ft_file_io.h ft_str.h
+HEADERS		:= $(addprefix includes/, ${SRC_HEADERS})
 
-.c.o :
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -I ${INCS}
+NAME		= bsq
 
-${NAME} : ${OBJS}
-	${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+CFLAGS		= -Wall -Wextra -Werror -Ofast
 
-all : ${NAME}
+all:		${NAME}
 
-run :
-	./${NAME} 
+${NAME}:	${OBJS} ${HEADERS}
+			gcc ${CFLAGS} ${OBJS} -o $@
 
-clean :
-	${RM} ${OBJS}
+.c.o:		${HEADERS}
+			gcc ${CFLAGS} -I./includes -c $< -o ${<:.c=.o}
 
-fclean : clean
-	${RM} ${NAME}
+clean:
+			rm -f ${OBJS}
 
-re : fclean all
+fclean:		clean
+			rm -f ${NAME}
 
-.PHONY: all clean fclean re .c.o 
+re:			fclean all
+
+.PHONY:		all clean fclean re
