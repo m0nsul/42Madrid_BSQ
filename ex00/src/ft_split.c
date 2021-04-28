@@ -4,9 +4,9 @@
 #include "ft_str.h"
 #include "ft_strxcpy.h"
 
-int		is_in_charset(char *charset, char to_find)
+int	is_in_charset(char *charset, char to_find)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (charset[i])
@@ -57,7 +57,8 @@ char	**ft_build_tab(char *str, char *charset)
 	pos_in_str = str;
 	while (ft_get_next_str(&pos_in_str, charset, &next_str_len))
 		nb_str++;
-	if (!(strs = (char **)malloc(sizeof(char *) * (nb_str + 1))))
+	strs = (char **)malloc(sizeof(char *) * (nb_str + 1));
+	if (!strs)
 		return (0);
 	return (strs);
 }
@@ -70,13 +71,17 @@ char	**ft_split(char *str, char *charset)
 	char	*pos_in_str;
 	int		i;
 
-	if (!(strs = ft_build_tab(str, charset)))
+	strs = ft_build_tab(str, charset);
+	if (!strs)
 		return (0);
 	i = 0;
 	pos_in_str = str;
-	while ((next_str = ft_get_next_str(&pos_in_str, charset, &next_str_len)))
+	next_str = 1;
+	while (next_str)
 	{
-		if (!(strs[i] = (char *)malloc(sizeof(char) * next_str_len + 1)))
+		next_str = ft_get_next_str(&pos_in_str, charset, &next_str_len);
+		strs[i] = (char *)malloc(sizeof(char) * next_str_len + 1);
+		if (!strs[i])
 			return (0);
 		ft_strncpy(strs[i], next_str, next_str_len);
 		i++;

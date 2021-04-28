@@ -27,7 +27,6 @@ char	*ft_file_missing(void)
 	return ("tempgrid");
 }
 
-
 int	check_main(int argc, char **argv)
 {
 	if (!(ft_strlen(argv[0])) && argc == 0)

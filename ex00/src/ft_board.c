@@ -95,7 +95,6 @@ int	ft_boardcreate(t_b	*board, char *path)
 	}
 	ft_squarescalculate(board);
 	ft_boardinitsolutions(board);
-	//ft_boardprint(board);
 	ft_boardprint_solutions(board);
 	return (1);
 }
