@@ -1,5 +1,4 @@
 #include <unistd.h>
-#include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -11,11 +10,14 @@ void	ft_put_error(void)
 	write(1, "map error", 9);
 	write(1, "\n", 1);
 }
-char	*ft_file_missing(void)
+
+char	*ft_file_path(int argc, char **argv, int n)
 {
 	char	buf;
 	int		file;
 
+	if (argc > 1)
+		return (argv[n]);
 	file = open("tempgrid", O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	if (file < 0)
 		return (NULL);
@@ -27,47 +29,24 @@ char	*ft_file_missing(void)
 	return ("tempgrid");
 }
 
-int	check_main(int argc, char **argv)
-{
-	if (!(ft_strlen(argv[0])) && argc == 0)
-		return (0);
-	return (1);
-}
-
 int	main(int argc, char **argv)
 {
-	// TODO: cambiar printf a write
-	// TODO: Quitar header que no se utilicen
-	t_b	*board;
-	int	n;
+	t_b		*board;
+	int		n;
 
-	board = NULL;
-	if (argc == 1)
+	n = -1;
+	while (++n < argc)
 	{
 		board = (t_b *) malloc (sizeof(t_b));
-		if (!(ft_boardcreate(board, ft_file_missing())))
+		if (!board)
+			return (0);
+		if (!(ft_boardcreate(board, ft_file_path(argc, argv, n + 1))))
 			ft_put_error();
+		if (n + 1 < argc - 1)
+			ft_putchar('\n');
 		ft_boardfree(board);
-	}
-	if (check_main(argc, argv))
-	{
-		n = 0;
-		while (++n < argc)
-		{
-			board = (t_b *) malloc (sizeof(t_b));
-			if (!board)
-				return (0);
-			if (!(ft_boardcreate(board, argv[n])))
-				ft_put_error();
-			if (n < argc - 1)
-				ft_putchar('\n');
-			ft_boardfree(board);
-		}
-	}
-	else
-	{
-		ft_put_error();
-		return (0);
+		if (n == argc - 2)
+			break ;
 	}
 	return (1);
 }

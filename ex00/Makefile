@@ -23,7 +23,7 @@ ${NAME} : ${OBJS}
 all : ${NAME}
 
 run :
-	./${NAME} ${BOARD}
+	./${NAME} 
 
 clean :
 	${RM} ${OBJS}
@@ -31,19 +31,6 @@ clean :
 fclean : clean
 	${RM} ${NAME}
 
-norm : 
-	norminette */*.[ch]
-
-find_sources :
-	find src -type f -name "*.c" | xargs -I{} echo ./{} | tr '\n' ' '
-
 re : fclean all
 
-test : re
-	@echo "[$(C_YELLOWB)TESTING$(C_RESET)] $(C_WHITEB)${BOARD}$(C_RESET)" ;
-	@echo "\n"
-	@./${NAME} ${BOARD}  || true ;
-	@##
-	@echo "\n"
-
-.PHONY: all clean fclean re .c.o test
+.PHONY: all clean fclean re .c.o 

@@ -57,8 +57,7 @@ char	**ft_build_tab(char *str, char *charset)
 	pos_in_str = str;
 	while (ft_get_next_str(&pos_in_str, charset, &next_str_len))
 		nb_str++;
-	strs = (char **)malloc(sizeof(char *) * (nb_str + 1));
-	if (!strs)
+	if (!(strs = (char **)malloc(sizeof(char *) * (nb_str + 1))))
 		return (0);
 	return (strs);
 }
@@ -71,17 +70,13 @@ char	**ft_split(char *str, char *charset)
 	char	*pos_in_str;
 	int		i;
 
-	strs = ft_build_tab(str, charset);
-	if (!strs)
+	if (!(strs = ft_build_tab(str, charset)))
 		return (0);
 	i = 0;
 	pos_in_str = str;
-	next_str = 1;
-	while (next_str)
+	while ((next_str = ft_get_next_str(&pos_in_str, charset, &next_str_len)))
 	{
-		next_str = ft_get_next_str(&pos_in_str, charset, &next_str_len);
-		strs[i] = (char *)malloc(sizeof(char) * next_str_len + 1);
-		if (!strs[i])
+		if (!(strs[i] = (char *)malloc(sizeof(char) * next_str_len + 1)))
 			return (0);
 		ft_strncpy(strs[i], next_str, next_str_len);
 		i++;

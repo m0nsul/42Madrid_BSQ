@@ -88,6 +88,7 @@ int	ft_boardcreate(t_b	*board, char *path)
 	board->error = 0;
 	board->x_size = 0;
 	board->y_size = 0;
+	board->squares = NULL;
 	if (!(ft_boardinit(board, path)))
 	{
 		board->error = 1;
@@ -101,7 +102,7 @@ int	ft_boardcreate(t_b	*board, char *path)
 
 void	ft_boardfree(t_b *board)
 {
-	if (board)
+	if (board && board->squares)
 		ft_squaresfree(board);
 	if (board->squares)
 		free(board->squares);
