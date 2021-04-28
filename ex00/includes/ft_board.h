@@ -1,6 +1,5 @@
 #ifndef FT_BOARD_H
 # define FT_BOARD_H
-# include "ft_enums.h"
 
 typedef enum e_square_type
 {
