@@ -1,5 +1,4 @@
 #include "ft_str.h"
-#include <stdio.h>
 
 int	ft_check_first_line(char *str)
 {
