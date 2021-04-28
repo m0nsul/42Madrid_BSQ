@@ -1,6 +1,5 @@
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include "ft_file.h"
 #include "ft_split.h"
 #include "ft_str.h"

@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "ft_board.h"
 #include "ft_file_io.h"
 #include "ft_str.h"
