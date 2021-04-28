@@ -38,7 +38,7 @@ int	ft_checkfile(char **lines, int lines_size)
 	int		y_size;
 
 	i = 0;
-	if (!lines[0])
+	if (!lines[0] || !lines)
 		return (0);
 	len_line0 = ft_strlen(lines[0]);
 	if (lines_size < 2 || (!(ft_check_first_line(lines[0]))))
@@ -65,7 +65,10 @@ int	ft_boardinit(t_b *board, char *path)
 
 	lines = ft_filegetlines(path);
 	if (!lines || !(ft_checkfile(lines, ft_getlinesnum(lines))))
+	{
+		ft_split_free(lines);
 		return (0);
+	}
 	len_line0 = ft_strlen(lines[0]);
 	ft_strcpy(board->path, path);
 	board->x_size = ft_strlen(lines[1]);

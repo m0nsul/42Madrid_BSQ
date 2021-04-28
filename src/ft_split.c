@@ -93,7 +93,11 @@ void	ft_split_free(char **tab)
 	int	i;
 
 	i = 0;
-	while (tab[i] != 0)
-		free(tab[i++]);
-	free(tab);
+	if (tab)
+	{
+		while (tab[i] != 0)
+			if (tab[i])
+				free(tab[i++]);
+		free(tab);
+	}
 }
