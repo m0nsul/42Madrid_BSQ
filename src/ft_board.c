@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "ft_board.h"
 #include "ft_file_io.h"
 #include "ft_str.h"
@@ -9,7 +8,7 @@
 #include "ft_strxcpy.h"
 #include "ft_aux.h"
 
-int	ft_checkfile_chars (char **lines, int lines_size)
+int	ft_checkfile_chars(char **lines, int lines_size)
 {
 	int	i;
 	int	j;
@@ -39,7 +38,7 @@ int	ft_checkfile(char **lines, int lines_size)
 	int		y_size;
 
 	i = 0;
-	if (!lines[0])
+	if (!lines[0] || !lines)
 		return (0);
 	len_line0 = ft_strlen(lines[0]);
 	if (lines_size < 2 || (!(ft_check_first_line(lines[0]))))
@@ -52,7 +51,7 @@ int	ft_checkfile(char **lines, int lines_size)
 		if ((ft_strlen(lines[i]) != line_width)
 			|| ft_strlen(lines[i]) < 1)
 			return (0);
-	if (!(ft_checkfile_chars (lines, lines_size)))
+	if (!(ft_checkfile_chars(lines, lines_size)))
 		return (0);
 	return (1);
 }
@@ -66,7 +65,10 @@ int	ft_boardinit(t_b *board, char *path)
 
 	lines = ft_filegetlines(path);
 	if (!lines || !(ft_checkfile(lines, ft_getlinesnum(lines))))
+	{
+		ft_split_free(lines);
 		return (0);
+	}
 	len_line0 = ft_strlen(lines[0]);
 	ft_strcpy(board->path, path);
 	board->x_size = ft_strlen(lines[1]);
@@ -88,6 +90,7 @@ int	ft_boardcreate(t_b	*board, char *path)
 	board->error = 0;
 	board->x_size = 0;
 	board->y_size = 0;
+	board->squares = NULL;
 	if (!(ft_boardinit(board, path)))
 	{
 		board->error = 1;
@@ -95,14 +98,13 @@ int	ft_boardcreate(t_b	*board, char *path)
 	}
 	ft_squarescalculate(board);
 	ft_boardinitsolutions(board);
-	//ft_boardprint(board);
 	ft_boardprint_solutions(board);
 	return (1);
 }
 
 void	ft_boardfree(t_b *board)
 {
-	if (board)
+	if (board && board->squares)
 		ft_squaresfree(board);
 	if (board->squares)
 		free(board->squares);

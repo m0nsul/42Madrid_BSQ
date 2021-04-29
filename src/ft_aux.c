@@ -36,4 +36,3 @@ int	ft_atoi_b(char *str)
 	}
 	return (result * sign);
 }
-

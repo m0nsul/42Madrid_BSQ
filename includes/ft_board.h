@@ -1,7 +1,5 @@
-#ifndef		FT_BOARD_H
-# define	FT_BOARD_H
-# define	DEFAULT_BOARD "tablero452"
-# include	"ft_enums.h"
+#ifndef FT_BOARD_H
+# define FT_BOARD_H
 
 typedef enum e_square_type
 {

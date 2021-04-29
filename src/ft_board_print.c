@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include "ft_board.h"
 #include "ft_file_io.h"
 #include "ft_str.h"
@@ -41,11 +40,13 @@ void	ft_boardprint_solutions(t_b *board)
 	{
 		j = -1;
 		while (++j < board->x_size)
+		{
 			if (board->squares[i][j]->is_solution)
 			{
 				ft_boardprint_solution(board, j, i);
 				return ;
 			}
+		}
 	}
 }
 
@@ -67,21 +68,4 @@ void	ft_boardprint_views(t_b *board)
 		}
 		ft_putchar('\n');
 	}
-}
-
-void	ft_boardprint(t_b *board)
-{
-	printf("\nBoard Details:\n");
-	printf("\n\tpath:\t%s", board->path);
-	printf("\n\tx_size:\t%d", board->x_size);
-	printf("\n\ty_size:\t%d", board->y_size);
-	printf("\n\tfree:\t%c", board->free);
-	printf("\n\tobst:\t%c", board->obst);
-	printf("\n\taqchar:\t%c", board->aqchar);
-	printf("\n\tsolmx:\t%d", board->solution_max);
-	printf("\n\n\nBoard Original view:\n\n");
-	ft_boardprint_views(board);
-	// printf("\nBoard Neighbors view:\n");
-	// printf("\nBoard Neighbors view:\n");
-	// ft_boardprint_views(board, "solutions");
 }

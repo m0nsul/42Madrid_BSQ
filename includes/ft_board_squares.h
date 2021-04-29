@@ -1,6 +1,5 @@
-#ifndef		FT_BOARD_SQUARES_H
-# define	FT_BOARD_SQUARES_H
-# include	"ft_enums.h"
+#ifndef FT_BOARD_SQUARES_H
+# define FT_BOARD_SQUARES_H
 
 int		ft_sqcalcneigh(t_b *board, int i, int j);
 void	ft_squarescalculate(t_b *board);
